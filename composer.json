@@ -1,5 +1,5 @@
 {
-    "name": "capimichi/wp-amazon-scraper",
+    "name": "capimichi/wppstarter",
     "type": "wordpress-plugin",
     "license": "MIT",
     "authors": [
@@ -10,7 +10,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "WPAmazonScraper\\": "src/WPAmazonScraper/"
+            "WppStarter\\": "src/WppStarter/"
         }
     },
     "require": {

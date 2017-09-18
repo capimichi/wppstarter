@@ -1,0 +1,21 @@
+{
+    "name": "capimichi/wp-amazon-scraper",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michele Capicchioni",
+            "email": "capimichi@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WPAmazonScraper\\": "src/WPAmazonScraper/"
+        }
+    },
+    "require": {
+        "doctrine/orm": "^2.5",
+        "symfony/symfony": "^3.3",
+        "indigophp/doctrine-annotation-autoload": "^0.1.0"
+    }
+}

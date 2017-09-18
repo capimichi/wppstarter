@@ -19,7 +19,7 @@ class WppStarter
     {
         $reader = new AnnotationReader();
         foreach ($bundles as $bundle) {
-            $controllers = $this->istantiateControllers($bundle, $viewsDir, $config);
+            $controllers = $this->istantiateControllers($bundle, $config);
             foreach ($controllers as $controller) {
                 $methods = get_class_methods($controller);
                 foreach ($methods as $method) {
@@ -35,11 +35,10 @@ class WppStarter
 
     /**
      * @param $bundle
-     * @param $viewsDir
      * @param $config
      * @return array
      */
-    protected function istantiateControllers($bundle, $viewsDir, $config)
+    protected function istantiateControllers($bundle, $config)
     {
         $bundleRootDir = $this->getBundleRootDir($bundle);
 

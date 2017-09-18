@@ -3,8 +3,6 @@
 namespace WppStarter;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
-use Doctrine\Instantiator\Instantiator;
 use WppStarter\Parser\AnnotationParser;
 
 class WppStarter
@@ -52,18 +50,15 @@ class WppStarter
         foreach ($controllerNames as $controllerName) {
             if (preg_match(" /\.php$/is", $controllerName)) {
                 $controllerName = preg_replace(" /\.php/", "", $controllerName);
-                try {
 //                    $controller = $instantiator->instantiate($controllerNamespace . $controllerName);
 //                    $controller->setConfig($config);
-                    $r = new \ReflectionClass($controllerNamespace . $controllerName);
+                $r = new \ReflectionClass($controllerNamespace . $controllerName);
+                if (!$r->isAbstract()) {
                     $controller = $r->newInstanceArgs([
                         $viewsDir,
                         $config,
                     ]);
-
                     $controllers[] = $controller;
-                } catch (InvalidArgumentException $exception) {
-
                 }
             }
         }
@@ -93,5 +88,6 @@ class WppStarter
         $controllerNamespace = $namespace . "\\Controller\\";
         return $controllerNamespace;
     }
+
 
 }

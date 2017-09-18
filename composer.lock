@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7268f3a39dcc18f737fe71dafec70847",
+    "content-hash": "e3caf5b020fd87a87699073f41ffdf5a",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -659,56 +659,6 @@
                 "rest"
             ],
             "time": "2016-10-17T18:31:11+00:00"
-        },
-        {
-            "name": "indigophp/doctrine-annotation-autoload",
-            "version": "v0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/indigophp/doctrine-annotation-autoload.git",
-                "reference": "5c2018e7b1277f691600e69b4d3177b706e8aa80"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/indigophp/doctrine-annotation-autoload/zipball/5c2018e7b1277f691600e69b4d3177b706e8aa80",
-                "reference": "5c2018e7b1277f691600e69b4d3177b706e8aa80",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.0",
-                "doctrine/annotations": "*",
-                "php": ">=5.4"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Indigo\\Composer\\DoctrineAnnotationAutoloadPlugin",
-                "branch-alias": {
-                    "dev-master": "0.2-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Indigo\\Composer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Márk Sági-Kazár",
-                    "email": "mark.sagikazar@gmail.com"
-                }
-            ],
-            "description": "Hooks into Composer autoload generation and adds Doctrine annotation autoloading",
-            "homepage": "https://indigophp.com",
-            "keywords": [
-                "annotation",
-                "autoload",
-                "doctrine"
-            ],
-            "time": "2015-11-12T12:29:47+00:00"
         },
         {
             "name": "paragonie/random_compat",

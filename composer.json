@@ -11,11 +11,13 @@
     "autoload": {
         "psr-4": {
             "WppStarter\\": "src/WppStarter/"
-        }
+        },
+        "files": [
+            "annotations.autoload.php"
+        ]
     },
     "require": {
         "doctrine/orm": "^2.5",
-        "symfony/symfony": "^3.3",
-        "indigophp/doctrine-annotation-autoload": "^0.1.0"
+        "symfony/symfony": "^3.3"
     }
 }

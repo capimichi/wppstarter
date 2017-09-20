@@ -2,9 +2,14 @@
 
 namespace WppStarter\Controller;
 
-
+/**
+ * Class Controller
+ * @package WppStarter\Controller
+ */
 abstract class Controller
 {
+
+    const TWIG_CACHE_DIRECTORY = "twig";
 
     /**
      * Configuration:
@@ -20,16 +25,26 @@ abstract class Controller
     protected $viewsDir;
 
     /**
+     * @var string
+     */
+    protected $cacheDir;
+
+    /**
+     * @var \Twig_Environment
+     */
+    protected $twig;
+
+    /**
      * Controller constructor.
      * @param $viewsDir
+     * @param $cacheDir
      * @param $config
      */
-    public function __construct($viewsDir, $config)
+    public function __construct($viewsDir, $cacheDir, $config)
     {
         $this->viewsDir = rtrim($viewsDir, "/") . "/";
-        if (isset($config['cache_dir'])) {
-            $config['cache_dir'] = rtrim($config['cache_dir'], "/") . "/";
-        }
+        $this->cacheDir = rtrim($cacheDir, "/") . "/";
+        $this->twig = $this->buildTwig($viewsDir, $cacheDir, $config);
         $this->config = $config;
     }
 
@@ -40,11 +55,7 @@ abstract class Controller
      */
     protected function render($view, $options = [])
     {
-        extract($options);
-        ob_start();
-        require $this->viewsDir . $view;
-        $content = ob_get_clean();
-        return $content;
+        return $this->twig->render($view, $options);
     }
 
     /**
@@ -54,5 +65,21 @@ abstract class Controller
     protected function get($key)
     {
         return isset($this->config[$key]) ? $this->config[$key] : null;
+    }
+
+    /**
+     * @param $viewsDir
+     * @param $cacheDir
+     * @param $config
+     *
+     * @return \Twig_Environment
+     */
+    private function buildTwig($viewsDir, $cacheDir, $config)
+    {
+        $loader = new \Twig_Loader_Filesystem($viewsDir);
+        $twig = new \Twig_Environment($loader, array(
+            'cache' => $cacheDir . self::TWIG_CACHE_DIRECTORY . DIRECTORY_SEPARATOR,
+        ));
+        return $twig;
     }
 }

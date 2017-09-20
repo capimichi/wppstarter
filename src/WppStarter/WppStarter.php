@@ -39,23 +39,18 @@ class WppStarter
     protected function istantiateControllers($bundle, $config)
     {
         $bundleRootDir = $this->getBundleRootDir($bundle);
-
         $controllerNamespace = $this->getControllerNamespace($bundle);
-
-        $viewsDir = $bundleRootDir . "/Resources/views/";
         $controllerDir = $bundleRootDir . "/Controller/";
         $controllerNames = scandir($controllerDir);
         $controllers = [];
-//        $instantiator = new Instantiator();
         foreach ($controllerNames as $controllerName) {
-            if (preg_match(" /\.php$/is", $controllerName)) {
+            if ($this->isPhpFile($controllerName)) {
                 $controllerName = preg_replace(" /\.php/", "", $controllerName);
-//                    $controller = $instantiator->instantiate($controllerNamespace . $controllerName);
-//                    $controller->setConfig($config);
                 $r = new \ReflectionClass($controllerNamespace . $controllerName);
                 if (!$r->isAbstract()) {
                     $controller = $r->newInstanceArgs([
-                        $viewsDir,
+                        $this->buildViewsDir($bundleRootDir),
+                        $this->buildCacheDir(),
                         $config,
                     ]);
                     $controllers[] = $controller;
@@ -89,5 +84,34 @@ class WppStarter
         return $controllerNamespace;
     }
 
+    /**
+     * @param $file
+     *
+     * @return bool
+     */
+    protected function isPhpFile($file)
+    {
+        return preg_match(" /\.php$/is", $file);
+    }
+
+    /**
+     * @param $bundleRootDir
+     * @return string
+     */
+    protected function buildViewsDir($bundleRootDir)
+    {
+        $viewsDir = $bundleRootDir . "/Resources/views/";
+        return $viewsDir;
+    }
+
+    /**
+     * @return string
+     */
+    protected function buildCacheDir()
+    {
+        $uploadDir = wp_upload_dir();
+        $cacheDir = $uploadDir['basedir'] . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR;
+        return $cacheDir;
+    }
 
 }

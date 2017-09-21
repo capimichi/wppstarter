@@ -14,7 +14,12 @@
         },
         "files": [
             "annotations.autoload.php",
-            "src/WppStarter/Annotation",
+            "src/WppStarter/Annotation/ActionAnnotation.php",
+            "src/WppStarter/Annotation/AdminPageAnnotation.php",
+            "src/WppStarter/Annotation/AjaxAnnotation.php",
+            "src/WppStarter/Annotation/FilterAnnotation.php",
+            "src/WppStarter/Annotation/MetaboxAnnotation.php",
+            "src/WppStarter/Annotation/ShortcodeAnnotation.php"
         ]
     },
     "require": {

@@ -205,6 +205,7 @@ class WppStarter
                 if (!$r->isAbstract()) {
                     $controller = $r->newInstanceArgs([
                         $this->initTwig($config),
+                        $this->initEntityManager($config),
                         $config,
                     ]);
                     $controllers[] = $controller;

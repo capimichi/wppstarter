@@ -92,7 +92,7 @@ class WppStarter
         if (!$config['entity_dir']) {
             return null;
         }
-        $config = Setup::createAnnotationMetadataConfiguration([
+        $emConfig = Setup::createAnnotationMetadataConfiguration([
             $config['entity_dir'],
         ], $config['dev']);
         $connectionParams = array(
@@ -103,7 +103,7 @@ class WppStarter
             'driver'   => $config['database_config']['driver'],
         );
 
-        $entityManager = EntityManager::create($connectionParams, $config);
+        $entityManager = EntityManager::create($connectionParams, $emConfig);
         return $entityManager;
 
     }

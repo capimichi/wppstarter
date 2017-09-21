@@ -13,12 +13,14 @@
             "WppStarter\\": "src/WppStarter/"
         },
         "files": [
-            "annotations.autoload.php"
+            "annotations.autoload.php",
+            "src/WppStarter/Annotation",
         ]
     },
     "require": {
         "doctrine/orm": "^2.5",
         "symfony/symfony": "^3.3",
+        "symfony/yaml": "2.*",
         "twig/twig": "^1.34"
     }
 }

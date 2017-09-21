@@ -2,49 +2,40 @@
 
 namespace WppStarter\Controller;
 
+use Doctrine\ORM\EntityManager;
+
 /**
  * Class Controller
  * @package WppStarter\Controller
  */
 abstract class Controller
 {
-
-    const TWIG_CACHE_DIRECTORY = "twig";
-
-    /**
-     * Configuration:
-     *  - cache_dir: path to cache directory
-     *
-     * @var array
-     */
-    protected $config;
-
-    /**
-     * @var string
-     */
-    protected $viewsDir;
-
-    /**
-     * @var string
-     */
-    protected $cacheDir;
-
     /**
      * @var \Twig_Environment
      */
     protected $twig;
 
     /**
+     * @var EntityManager
+     */
+    protected $entityManager;
+
+    /**
+     * @var array
+     */
+    protected $config;
+
+    /**
      * Controller constructor.
-     * @param $viewsDir
-     * @param $cacheDir
+     *
+     * @param $twig
+     * @param $entityManager
      * @param $config
      */
-    public function __construct($viewsDir, $cacheDir, $config)
+    public function __construct($twig, $entityManager = null, $config = [])
     {
-        $this->viewsDir = rtrim($viewsDir, "/") . "/";
-        $this->cacheDir = rtrim($cacheDir, "/") . "/";
-        $this->twig = $this->buildTwig($viewsDir, $cacheDir, $config);
+        $this->twig = $twig;
+        $this->entityManager = $entityManager;
         $this->config = $config;
     }
 
@@ -59,27 +50,19 @@ abstract class Controller
     }
 
     /**
+     * @return EntityManager|null
+     */
+    protected function getEntityManager()
+    {
+        return $this->entityManager;
+    }
+
+    /**
      * @param $key
      * @return mixed|null
      */
     protected function get($key)
     {
         return isset($this->config[$key]) ? $this->config[$key] : null;
-    }
-
-    /**
-     * @param $viewsDir
-     * @param $cacheDir
-     * @param $config
-     *
-     * @return \Twig_Environment
-     */
-    private function buildTwig($viewsDir, $cacheDir, $config)
-    {
-        $loader = new \Twig_Loader_Filesystem($viewsDir);
-        $twig = new \Twig_Environment($loader, array(
-            'cache' => $cacheDir . self::TWIG_CACHE_DIRECTORY . DIRECTORY_SEPARATOR,
-        ));
-        return $twig;
     }
 }

@@ -5,8 +5,6 @@ namespace WppStarter;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\CachedReader;
 use Doctrine\Common\Cache\FilesystemCache;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
 use WppStarter\Parser\AnnotationParser;
 
 class WppStarter
@@ -19,7 +17,6 @@ class WppStarter
         'dev'             => false,
         'cache_dir'       => null,
         'views_dir'       => null,
-        'entity_dir'      => null,
         'twig_extensions' => [
             'globals'   => [],
             'filters'   => [],
@@ -75,37 +72,11 @@ class WppStarter
         $directories = [
             'cache_dir',
             'views_dir',
-            'entity_dir',
         ];
         foreach ($directories as $directory) {
             $config[$directory] = $config[$directory] ? rtrim($config[$directory], DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR : $config[$directory];
         }
         return $config;
-    }
-
-    /**
-     * @param $config
-     * @return EntityManager|null
-     */
-    protected function initEntityManager($config)
-    {
-        if (!$config['entity_dir']) {
-            return null;
-        }
-        $emConfig = Setup::createAnnotationMetadataConfiguration([
-            $config['entity_dir'],
-        ], $config['dev']);
-        $connectionParams = array(
-            'dbname'   => $config['database_config']['dbname'],
-            'user'     => $config['database_config']['user'],
-            'password' => $config['database_config']['password'],
-            'host'     => $config['database_config']['host'],
-            'driver'   => $config['database_config']['driver'],
-        );
-
-        $entityManager = EntityManager::create($connectionParams, $emConfig);
-        return $entityManager;
-
     }
 
     /**

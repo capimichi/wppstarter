@@ -3,6 +3,7 @@
 namespace WppStarter\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Pixie\QueryBuilder\QueryBuilderHandler;
 
 /**
  * Class Controller
@@ -16,9 +17,9 @@ abstract class Controller
     protected $twig;
 
     /**
-     * @var EntityManager
+     * @var QueryBuilderHandler
      */
-    protected $entityManager;
+    protected $qb;
 
     /**
      * @var array
@@ -29,13 +30,13 @@ abstract class Controller
      * Controller constructor.
      *
      * @param $twig
-     * @param $entityManager
+     * @param $qb
      * @param $config
      */
-    public function __construct($twig, $entityManager = null, $config = [])
+    public function __construct($twig, $qb, $config = [])
     {
         $this->twig = $twig;
-        $this->entityManager = $entityManager;
+        $this->qb = $qb;
         $this->config = $config;
     }
 

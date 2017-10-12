@@ -5,6 +5,8 @@ namespace WppStarter;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\CachedReader;
 use Doctrine\Common\Cache\FilesystemCache;
+use Pixie\Connection;
+use Pixie\QueryBuilder\QueryBuilderHandler;
 use WppStarter\Parser\AnnotationParser;
 
 class WppStarter
@@ -116,6 +118,27 @@ class WppStarter
 
     /**
      * @param $config
+     * @return QueryBuilderHandler
+     */
+    protected function initQb($config)
+    {
+        if (isset($config['dbname'])) {
+            $connection = new Connection('mysql', [
+                'driver'   => 'mysql',
+                'host'     => $config['database_config']['host'],
+                'database' => $config['database_config']['dbname'],
+                'username' => $config['database_config']['user'],
+                'password' => $config['database_config']['password'],
+            ]);
+            $qb = new QueryBuilderHandler($connection);
+        } else {
+            $qb = null;
+        }
+        return $qb;
+    }
+
+    /**
+     * @param $config
      * @return AnnotationReader|CachedReader
      */
     protected function initAnnotationReader($config)
@@ -176,7 +199,7 @@ class WppStarter
                 if (!$r->isAbstract()) {
                     $controller = $r->newInstanceArgs([
                         $this->initTwig($config),
-                        $this->initEntityManager($config),
+                        $this->initQb($config),
                         $config,
                     ]);
                     $controllers[] = $controller;

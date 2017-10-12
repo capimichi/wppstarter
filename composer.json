@@ -24,7 +24,8 @@
     },
     "require": {
         "doctrine/orm": "^2.5",
-        "symfony/symfony": "^3.3",
-        "twig/twig": "^1.34"
+        "symfony/symfony": "3.3.8",
+        "twig/twig": "^1.34",
+        "usmanhalalit/pixie": "^2.0"
     }
 }

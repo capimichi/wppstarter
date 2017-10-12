@@ -51,11 +51,11 @@ abstract class Controller
     }
 
     /**
-     * @return EntityManager|null
+     * @return QueryBuilderHandler|null
      */
-    protected function getEntityManager()
+    protected function getQb()
     {
-        return $this->entityManager;
+        return $this->qb;
     }
 
     /**
